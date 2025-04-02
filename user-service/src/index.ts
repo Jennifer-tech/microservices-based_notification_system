@@ -1,25 +1,14 @@
 import express, { Request } from 'express';
 import { connectDB } from './config/db';
-import { connectRabbitMQ, channel } from './config/rabbitmq';
-import { User } from './models/User';
+import { connectRabbitMQ } from './config/rabbitmq';
+import userRoutes from "./routes/user.routes"
 
 const app = express();
 app.use(express.json());
 
-app.post('/register', async (req: Request, res) => {
-    const { name, email } = req.body;
-    const user = new User({ name, email });
-    await user.save();
+connectDB()
 
-    channel.sendToQueue('notifications', Buffer.from(JSON.stringify({ email})));
-    res.json({ message: "User registered and notification sent"});
+app.use('api/users', userRoutes)
 
-})
-
-const startServer = async () => {
-    await connectDB();
-    await connectRabbitMQ();
-    app.listen(3001, () => console.log("User service running on port 3001"))
-}
-
-startServer();
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => console.log(`User service running on port ${PORT}`))
