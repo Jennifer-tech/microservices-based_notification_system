@@ -8,9 +8,9 @@ services:
     ports:
       - "5672:5672"    # RabbitMQ communication port
       - "15672:15672"  # RabbitMQ web UI
-    environment:
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
+    # environment:
+    #   RABBITMQ_DEFAULT_USER: "guest"
+    #   RABBITMQ_DEFAULT_PASS: "guest"
 
   mongodb:
     image: "mongo"
@@ -26,6 +26,8 @@ services:
     depends_on:
       - rabbitmq
       - mongodb
+    env_file:
+      - ./user-service/.env
 
   notification-service:
     build: ./notification-service
@@ -33,3 +35,5 @@ services:
     depends_on:
       - rabbitmq
       - mongodb
+    env_file:
+      - ./notification-service/.env
