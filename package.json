@@ -2,7 +2,7 @@
   "name": "microservices-based_notification_system",
   "version": "1.0.0",
   "description": "A simple project built with docker, rabbitMq, mongodb, express, kubernetes etc",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Jennifer-tech/microservices-based_notification_system/issues"
   },
-  "homepage": "https://github.com/Jennifer-tech/microservices-based_notification_system#readme"
+  "homepage": "https://github.com/Jennifer-tech/microservices-based_notification_system#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.1"
+  }
 }
